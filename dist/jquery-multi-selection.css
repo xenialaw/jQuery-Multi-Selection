@@ -1,4 +1,4 @@
-.jp-multiselect {float:left; display:block;}
+.jp-multiselect {display:table;}
 .jp-multiselect select {width:100%;}
 .jp-multiselect .from-panel {float:left; width:45%;min-width:270px}
 .jp-multiselect .from-panel option {width:100%; display:block;}

@@ -6,10 +6,11 @@
  * http://www.jquery.com/
  *
  * 
- * Copyright 2014 Soyo Solution Company. and other contributors
+ * Copyright 2018 © Soyo Solution Company. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
+ * Version           : v1.0
  * Author            : Xenia Law
  * Created date      : 2018-09-14
  * Last updated date : 2018-09-14
@@ -18,21 +19,21 @@
 (function ( $ ) {
     $.fn.jQueryMultiSelection = function(options) {
         var _opts = $.extend({
-                        btnMoveAllRight      : ".btn-move-all-right",
-                        btnMoveSelectedRight : ".btn-move-selected-right",
-                        btnMoveAllLeft       : ".btn-move-all-left",
-                        btnMoveSelectedLeft  : ".btn-move-selected-left",
-                        btnDelete    : ".btn-delete",
-                        btnMoveUp    : ".btn-up",
-                        btnMoveDown  : ".btn-down",
+                        btnMoveAllRight       : ".btn-move-all-right",
+                        btnMoveSelectedRight  : ".btn-move-selected-right",
+                        btnMoveAllLeft        : ".btn-move-all-left",
+                        btnMoveSelectedLeft   : ".btn-move-selected-left",
+                        btnDelete             : ".btn-delete",
+                        btnMoveUp             : ".btn-up",
+                        btnMoveDown           : ".btn-down",
                         
                         htmlMoveAllRight      : "&rsaquo;&rsaquo;",
                         htmlMoveSelectedRight : "&rsaquo;",
                         htmlMoveAllLeft       : "&lsaquo;&lsaquo;",
                         htmlMoveSelectedLeft  : "&lsaquo;",
-                        htmlDelete    : "Delete",
-                        htmlMoveUp    : "Up",
-                        htmlMoveDown  : "Down",
+                        htmlDelete            : "Delete",
+                        htmlMoveUp            : "Up",
+                        htmlMoveDown          : "Down",
                     }, options);
                        
         jQueryMultiSelection = {
@@ -91,38 +92,10 @@
         }
         
         function setMoveBtnsListener(){
-            $(_opts.btnMoveAllRight).click(function(){
-                var btnObj = $(this);
-                btnObj.parent().prev().find("select option").each(function() {
-                    var thisObj = $(this);
-                    thisObj.remove();
-                    btnObj.parent().next().find("select").append(thisObj);
-                });
-            });
-            $(_opts.btnMoveSelectedRight).click(function(){
-                var btnObj = $(this);
-                btnObj.parent().prev().find("select option:selected").each(function() {
-                    var thisObj = $(this);
-                    thisObj.remove();
-                    btnObj.parent().next().find("select").append(thisObj);
-                });
-            });
-            $(_opts.btnMoveAllLeft).click(function(){
-                var btnObj = $(this);
-                btnObj.parent().next().find("select option").each(function() {
-                    var thisObj = $(this);
-                    thisObj.remove();
-                    btnObj.parent().prev().find("select").append(thisObj);
-                });
-            });
-            $(_opts.btnMoveSelectedLeft).click(function(){
-                var btnObj = $(this);
-                btnObj.parent().next().find("select option:selected").each(function() {
-                    var thisObj = $(this);
-                    thisObj.remove();
-                    btnObj.parent().prev().find("select").append(thisObj);
-                });
-            });
+            $(_opts.btnMoveAllRight).click(function(){ _multiTransfer(this, true, true)});
+            $(_opts.btnMoveSelectedRight).click(function(){ _multiTransfer(this, false, true)});
+            $(_opts.btnMoveAllLeft).click(function(){ _multiTransfer(this, true, false)});
+            $(_opts.btnMoveSelectedLeft).click(function(){_multiTransfer(this, false, false)});
         }
         
         function _multiTransfer(btnEle, isAll, isToRight){
