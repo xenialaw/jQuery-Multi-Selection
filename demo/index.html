@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../dist/jquery-multi-selection.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="../dist/jquery.multi-selection.v1.js"></script>
         <title>jQuery MultiSelection Demo</title>
     </head>
     <body>
@@ -39,6 +40,9 @@
                 <button type="button" class="btn-down"></button>
             </div>
         </div>
+        <script>
+            $(".jp-multiselect").jQueryMultiSelection();
+        </script>
         <hr />
         <!-- 2 -->
         <h2>With dynamic add items</h2>
@@ -62,36 +66,12 @@
             </div>
         </div>
         <p><button id="btn-ajax" class="btn btn-primary">Ajax get List</button></p>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="../dist/jquery.multi-selection.v1.js"></script>
         <script>
-            Object.size = function(obj) {
-                var size = 0, key;
-                for (key in obj) { if (obj.hasOwnProperty(key)) size++; }
-                return size;
-            };
-            $("#btn-ajax").click(function(){
-                jQuery.ajax({
-                    url: "../dist/list.json",
-                    dataType: "json",
-                    data: {
-                        format: "json"
-                    },
-                    success: function( response ) {
-                        var tempStr = "";
-                        var jsonItemsSize = Object.size(response);
-                        for(var i =0; i<jsonItemsSize; i++){
-                            tempStr += '<option title="'+i+'" value="'+response[i].value+'">'+response[i].text+"</option>";
-                        }
-                        jQuery("#dynamic-form").find(".from-panel select").append(tempStr);
-                    },
-                    complete:function(){},
-                    error: function(  jqXHR,textStatus,errorThrown ) {}
-                });
+            $("#dynamic-form").jQueryMultiSelection({
+                enableDynamicAddContent : true,
             });
-                
-            $(".jp-multiselect").jQueryMultiSelection();
         </script>
+        
         <h4>Document</h4>
         <a href="https://github.com/xenialaw/jQuery-Multi-Selection" target="_blank">
         https://github.com/xenialaw/jQuery-Multi-Selection

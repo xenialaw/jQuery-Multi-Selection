@@ -13,29 +13,36 @@
  * Version           : v1.0
  * Author            : Xenia Law
  * Created date      : 2018-09-14
- * Last updated date : 2018-09-14
+ * Last updated date : 2018-09-17
  */
 
 (function ( $ ) {
     $.fn.jQueryMultiSelection = function(options) {
+        
         var _opts = $.extend({
-                        btnMoveAllRight       : ".btn-move-all-right",
-                        btnMoveSelectedRight  : ".btn-move-selected-right",
-                        btnMoveAllLeft        : ".btn-move-all-left",
-                        btnMoveSelectedLeft   : ".btn-move-selected-left",
-                        btnDelete             : ".btn-delete",
-                        btnMoveUp             : ".btn-up",
-                        btnMoveDown           : ".btn-down",
+                        enableDynamicAddContent : false,
+                        ajaxSourceUrl           : "../dist/list.json",
+                        btnGetJson              : "#btn-ajax",
+                        selectMeunFrom          : ".from-panel select",
+                        selectMeunTo            : ".to-panel select",
                         
-                        htmlMoveAllRight      : "&rsaquo;&rsaquo;",
-                        htmlMoveSelectedRight : "&rsaquo;",
-                        htmlMoveAllLeft       : "&lsaquo;&lsaquo;",
-                        htmlMoveSelectedLeft  : "&lsaquo;",
-                        htmlDelete            : "Delete",
-                        htmlMoveUp            : "Up",
-                        htmlMoveDown          : "Down",
+                        btnMoveAllRight         : ".btn-move-all-right",
+                        btnMoveSelectedRight    : ".btn-move-selected-right",
+                        btnMoveAllLeft          : ".btn-move-all-left",
+                        btnMoveSelectedLeft     : ".btn-move-selected-left",
+                        btnDelete               : ".btn-delete",
+                        btnMoveUp               : ".btn-up",
+                        btnMoveDown             : ".btn-down",
+                        
+                        htmlMoveAllRight        : "&rsaquo;&rsaquo;",
+                        htmlMoveSelectedRight   : "&rsaquo;",
+                        htmlMoveAllLeft         : "&lsaquo;&lsaquo;",
+                        htmlMoveSelectedLeft    : "&lsaquo;",
+                        htmlDelete              : "Delete",
+                        htmlMoveUp              : "Up",
+                        htmlMoveDown            : "Down",
                     }, options);
-                       
+        
         jQueryMultiSelection = {
             init: function(){
                 setInterface();
@@ -43,6 +50,7 @@
                 setUpBtnListener();
                 setDownBtnListener();
                 setMoveBtnsListener();
+                if(_opts.enableDynamicAddContent) setAjaxBtnListener();
             }
         };
         
@@ -111,7 +119,34 @@
             });
         }
         
+        function setAjaxBtnListener(){
+            $(_opts.btnGetJson).one( "click", function() {
+                var thisBtnEle = $(this);
+                $.ajax({
+                    url: _opts.ajaxSourceUrl,
+                    dataType: "json",
+                    data: { format: "json"},
+                    success: function( response ) {
+                        var tempStr = "";
+                        var jsonItemsSize = Object.size(response);
+                        for(var i =0; i<jsonItemsSize; i++){
+                            tempStr += '<option title="'+i+'" value="'+response[i].value+'">'+response[i].text+"</option>";
+                        }
+                        $(_opts.selectMeunFrom).append(tempStr);
+                    },
+                    complete:function(){},
+                    error: function(  jqXHR,textStatus,errorThrown ) {}
+                });
+            });
+        }
+        
+        Object.size = function(obj) {
+            var size = 0, key;
+            for (key in obj) { if (obj.hasOwnProperty(key)) size++; }
+            return size;
+        };
+        
         jQueryMultiSelection.init();
-
+        
     };
 }( jQuery ));
