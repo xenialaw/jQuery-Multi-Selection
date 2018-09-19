@@ -13,12 +13,13 @@
  * Version           : v1.0
  * Author            : Xenia Law
  * Created date      : 2018-09-14
- * Last updated date : 2018-09-17
+ * Last updated date : 2018-09-19
  */
 
 (function ( $ ) {
     $.fn.jQueryMultiSelection = function(options) {
         
+        var thisEle = this;
         var _opts = $.extend({
                         enableDynamicAddContent : false,
                         ajaxSourceUrl           : "../dist/list.json",
@@ -81,7 +82,6 @@
                         options.eq(newPos).before("<option value='"+$(this).val()+"' selected='selected'>"+$(this).text()+"</option>");
                         $(this).remove();
                     }
-                    console.log($(this));
                 });
             });
         }
@@ -132,7 +132,7 @@
                         for(var i =0; i<jsonItemsSize; i++){
                             tempStr += '<option title="'+i+'" value="'+response[i].value+'">'+response[i].text+"</option>";
                         }
-                        $(_opts.selectMeunFrom).append(tempStr);
+                        thisEle.find(_opts.selectMeunFrom).append(tempStr);
                     },
                     complete:function(){},
                     error: function(  jqXHR,textStatus,errorThrown ) {}

@@ -6,6 +6,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="../dist/jquery.multi-selection.v1.js"></script>
         <title>jQuery MultiSelection Demo</title>
+        <style>
+            .jp-multiselect select {max-height: 130px;}
+        </style>
     </head>
     <body>
         <h1>jQuery MultiSelection Demo</h1>
@@ -64,8 +67,10 @@
                 <button type="button" class="btn-up"></button>
                 <button type="button" class="btn-down"></button>
             </div>
+            <br />
+            <br />
+            <p><button id="btn-ajax" class="btn btn-primary">Ajax get List</button></p>
         </div>
-        <p><button id="btn-ajax" class="btn btn-primary">Ajax get List</button></p>
         <script>
             $("#dynamic-form").jQueryMultiSelection({
                 enableDynamicAddContent : true,
