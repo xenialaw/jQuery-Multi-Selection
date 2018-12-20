@@ -57,6 +57,12 @@ $(".jp-multiselect").jQueryMultiSelection();
 
 An example you can reference is index.html in this repository.
 
+### Reminder
+If you enabled dynamic added content feature, remember run the code in server (or localhost) otherwise would got this error :
+```
+Access to XMLHttpRequest at 'file:///C:/Users/xxx/jQuery-Multi-Selection-master/jQuery-Multi-Selection-master/dist/list.json?format=json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
+```
+
 ## Configuration
 
 You can pass an object to this plugin for configuration, an example:
